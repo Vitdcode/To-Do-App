@@ -26,15 +26,20 @@ export function prompt() {
   closePromptIcon.classList.add("close-prompt-icon");
   closePromptIcon.src = closeicon;
 
+  const backdrop = document.createElement("div");
+  backdrop.classList.add("backdrop");
+
   promptWindow.appendChild(promptHeaderText);
   promptWindow.appendChild(closePromptIcon);
   promptWindow.appendChild(inputField);
   promptWindow.appendChild(createListButton);
   mainContentWrapper.appendChild(promptWindow);
+  document.body.appendChild(backdrop);
 }
 
 export function deletePrompt() {
   mainContentWrapper.removeChild(document.querySelector(".prompt-window"));
+  document.body.removeChild(document.querySelector(".backdrop"));
 }
 
 export function createNewList() {}
