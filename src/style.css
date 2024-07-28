@@ -1,3 +1,7 @@
+:root {
+  --boxshadowCardTemplate: 1px 1px 5px 0px rgb(128, 128, 128, 0.7);
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: #ffffff;
@@ -28,7 +32,9 @@ body {
   background-color: rgba(236, 236, 236, 0.7);
 }
 
+/* prompt window */
 .prompt-window {
+  position: relative;
   font-weight: bold;
   font-size: 1.3rem;
   position: absolute;
@@ -42,23 +48,30 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   height: 300px;
-  width: 400px;
-  background-color: rgba(124, 223, 236, 0.658);
+  width: 500px;
+  background-color: rgba(233, 233, 233, 0.603);
+  box-shadow: var(--boxshadowCardTemplate);
 }
 
 .prompt-window p {
   background-color: rgba(62, 231, 175, 0.658);
-  padding: 10px;
+  padding: 6px;
   border-radius: 10px;
 }
 
 .prompt-window input {
   width: 70%;
-  height: 30px;
+  height: 40px;
   border-radius: 10px;
   border: none;
   padding: 0 10px;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  color: rgba(71, 71, 71, 0.911);
+}
+
+.prompt-window input:focus {
+  outline: 1.5px solid rgb(120, 231, 194);
+  box-shadow: var(--boxshadowCardTemplate);
 }
 
 .prompt-create-list-button {
@@ -68,4 +81,28 @@ body {
   border: none;
   font-size: 0.9rem;
   font-weight: bold;
+  background-color: rgb(120, 231, 194);
+}
+
+.prompt-create-list-button:hover {
+  background-color: rgb(132, 255, 222);
+  cursor: pointer;
+}
+
+.prompt-create-list-button:active {
+  background-color: rgb(113, 224, 187);
+}
+
+.close-prompt-icon {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  right: 3%;
+  top: 3%;
+}
+
+.close-prompt-icon:hover {
+  background-color: rgba(228, 80, 129, 0.658);
+  border-radius: 100%;
+  cursor: pointer;
 }
