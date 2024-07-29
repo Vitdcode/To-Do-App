@@ -82,7 +82,7 @@ body {
   border-radius: 10px;
 }
 
-.prompt-window input {
+.new-list-input-field {
   width: 70%;
   height: 40px;
   border-radius: 10px;
@@ -92,7 +92,7 @@ body {
   color: rgba(71, 71, 71, 0.911);
 }
 
-.prompt-window input:focus {
+.new-list-input-field:focus {
   outline: 1.5px solid rgb(120, 231, 194);
   box-shadow: var(--boxshadowCardTemplate);
 }

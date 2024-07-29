@@ -17,6 +17,8 @@ export function prompt() {
   promptWindow.classList.add("prompt-window");
 
   const inputField = document.createElement("input");
+  inputField.classList.add("new-list-input-field");
+  inputField.id = "Create new List Input";
 
   const createListButton = document.createElement("button");
   createListButton.classList.add("prompt-create-list-button");
