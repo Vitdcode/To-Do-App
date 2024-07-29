@@ -1,6 +1,10 @@
 import "./style.css";
 import { createListButton } from "./element-creation-functions.js";
-import { summonPromptAndAddListToLibrabry } from "./listhandling.js";
+import { summonPrompt } from "./ui-functions.js";
+import { createListItem } from "./ui-functions.js";
+import { closePromptButton } from "./ui-functions.js";
 
 createListButton();
-summonPromptAndAddListToLibrabry();
+summonPrompt();
+closePromptButton();
+createListItem();

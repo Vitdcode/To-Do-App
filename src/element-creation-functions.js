@@ -1,5 +1,4 @@
 import closeicon from "../src/images/remove.png";
-const mainContentWrapper = document.querySelector(".main-content");
 
 export function createListButton() {
   const leftSideWrapper = document.querySelector(".left-side");
@@ -35,13 +34,6 @@ export function prompt() {
   promptWindow.appendChild(closePromptIcon);
   promptWindow.appendChild(inputField);
   promptWindow.appendChild(createListButton);
-  mainContentWrapper.appendChild(promptWindow);
+  document.querySelector(".main-content").appendChild(promptWindow);
   document.body.appendChild(backdrop);
 }
-
-export function deletePrompt() {
-  mainContentWrapper.removeChild(document.querySelector(".prompt-window"));
-  document.body.removeChild(document.querySelector(".backdrop"));
-}
-
-export function createNewList() {}
