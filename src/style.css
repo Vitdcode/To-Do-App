@@ -26,11 +26,12 @@ body {
 /* left side */
 
 .left-side {
-  background-color: rgba(224, 224, 224, 0.6);
-  backdrop-filter: blur(5px);
+  background-color: rgba(224, 224, 224, 0.7);
+  /*  backdrop-filter: blur(5px); */
 }
 
 .create-new-list-button {
+  display: block;
   height: 50px;
   width: 180px;
   border-radius: 10px;
@@ -38,6 +39,8 @@ body {
   font-size: 0.9rem;
   font-weight: bold;
   background-color: rgb(120, 231, 194);
+  margin-inline: auto;
+  margin-top: 20px;
 }
 
 .create-new-list-button:hover {
@@ -48,6 +51,27 @@ body {
 .create-new-list-button:active {
   background-color: rgb(113, 224, 187);
 }
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.listWrapper p {
+  background-color: rgb(124, 226, 175, 0.7);
+  padding: 10px;
+  border-radius: 15px;
+  margin-inline: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.listWrapper p:hover {
+  background-color: rgb(124, 226, 175);
+}
+/* right side */
 
 .right-side {
   background-color: rgba(236, 236, 236, 0.7);
