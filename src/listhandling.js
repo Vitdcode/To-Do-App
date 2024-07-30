@@ -1,4 +1,7 @@
 let lists = [];
+export function getList() {
+  return lists;
+}
 
 class List {
   constructor(name) {

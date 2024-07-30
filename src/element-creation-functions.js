@@ -1,4 +1,5 @@
 import closeicon from "../src/images/remove.png";
+import { getList } from "./listhandling.js";
 
 export function createListButton() {
   const leftSideWrapper = document.querySelector(".left-side");
@@ -37,3 +38,42 @@ export function prompt() {
   document.querySelector(".main-content").appendChild(promptWindow);
   document.body.appendChild(backdrop);
 }
+
+/* document.querySelector(".left-side").removeChild(".listWrapper"); */
+/*  document.querySelectorAll(".listWrapper").forEach((e) => e.remove()); */
+/*   listWrapper.classList.add("listWrapper"); */
+
+export function createListInDom() {
+  const listWrapper = document.querySelector(".listWrapper");
+
+  getList().forEach((list, index) => {
+    const existingListItem = listWrapper.querySelector(`#list-${index}`);
+    console.log(existingListItem);
+    if (!existingListItem) {
+      const listName = document.createElement("p");
+      listName.id = `list-${index}`;
+      listName.textContent = `${list.name}`;
+
+      listWrapper.appendChild(listName);
+      document.querySelector(".left-side").appendChild(listWrapper);
+    }
+  });
+}
+
+/* export function createListInDom() {
+  const listWrapper = document.querySelector(".listWrapper");
+
+  getList().forEach((list, index) => {
+    const existingListItem = listWrapper.querySelector(`#list-${index}`);
+
+    if (!existingListItem) {
+      const listName = document.createElement("p");
+      listName.id = `list-${index}`;
+      listName.textContent = `${list.name}`;
+
+      listWrapper.appendChild(listName);
+    }
+  });
+
+  document.querySelector(".left-side").appendChild(listWrapper);
+} */
