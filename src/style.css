@@ -176,6 +176,41 @@ body {
   z-index: 1;
 }
 
+.prompt-color-picker-initial {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  right: 3%;
+  bottom: 5%;
+  border-radius: 100%;
+}
+
+.prompt-color-picker-initial:hover {
+  cursor: pointer;
+}
+
+.color-picker-window {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -32%;
+  gap: 30px;
+  width: 500px;
+  height: 80px;
+  border-radius: 15px;
+  background-color: rgba(233, 233, 233, 0.603);
+  box-shadow: var(--boxshadowCardTemplate);
+  animation: fadeIn 350ms ease-in;
+}
+
+.color-picker-window > div {
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
 /* animations */
 
 @keyframes fadeIn {

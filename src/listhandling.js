@@ -1,9 +1,10 @@
 export let lists = [];
 
 class List {
-  constructor(name, checked = true) {
+  constructor(name, checked = true, color = `rgb(121, 232, 195)`) {
     this.name = name;
     this.checked = checked;
+    this.color = color;
   }
 
   /*   get name() {
@@ -32,4 +33,5 @@ export function pushListToListsArray(name, checked) {
   const list = new List(name, checked);
   lists.push(list);
   localStorage.setItem("lists", JSON.stringify(lists));
+  console.log(localStorage);
 }

@@ -13,30 +13,76 @@ export function prompt() {
   const promptHeaderText = document.createElement("p");
   promptHeaderText.textContent = "Create new List";
 
+  //prompt window
   const promptWindow = document.createElement("div");
   promptWindow.classList.add("prompt-window");
-
+  // prompt input field
   const inputField = document.createElement("input");
   inputField.classList.add("new-list-input-field");
   inputField.id = "Create new List Input";
-
+  //create new list button inside prompt
   const createListButton = document.createElement("button");
   createListButton.classList.add("prompt-create-list-button");
   createListButton.textContent = "Create List";
-
+  // close prompt button
   const closePromptIcon = document.createElement("img");
   closePromptIcon.classList.add("close-prompt-icon");
   closePromptIcon.src = closeicon;
-
+  // backdrop element for later use to blur the background
   const backdrop = document.createElement("div");
   backdrop.classList.add("backdrop");
+  //color picker
+  const initialColorForColorPicker = document.createElement("div");
+  initialColorForColorPicker.classList.add("prompt-color-picker-initial");
+  initialColorForColorPicker.style.backgroundColor = `rgb(121, 232, 195)`;
 
   promptWindow.appendChild(promptHeaderText);
   promptWindow.appendChild(closePromptIcon);
   promptWindow.appendChild(inputField);
   promptWindow.appendChild(createListButton);
+  promptWindow.appendChild(initialColorForColorPicker);
   document.querySelector(".main-content").appendChild(promptWindow);
   document.body.appendChild(backdrop);
+  listColorSelectorWindow();
+}
+
+function listColorSelectorWindow() {
+  const initialColorForColorPicker = document.querySelector(".prompt-color-picker-initial"); //prettier-ignore
+  const promptWindow = document.querySelector(".prompt-window");
+  let colorPickerWindowIsOpen = false;
+
+  initialColorForColorPicker.addEventListener("click", () => {
+    if (colorPickerWindowIsOpen === false) {
+      const colorPickerWindow = document.createElement("div");
+      colorPickerWindow.classList.add("color-picker-window");
+
+      const colorRed = document.createElement("div");
+      colorRed.style.backgroundColor = `rgba(238, 97, 97, 0.658)`;
+
+      const colorBlue = document.createElement("div");
+      colorBlue.style.backgroundColor = `rgba(61, 153, 240, 0.658)`;
+
+      const colorMagenta = document.createElement("div");
+      colorMagenta.style.backgroundColor = `rgba(183, 67, 236, 0.658)`;
+
+      const colorGreen = document.createElement("div");
+      colorGreen.style.backgroundColor = `rgba(62, 231, 175, 0.658)`;
+
+      colorPickerWindow.appendChild(colorRed);
+      colorPickerWindow.appendChild(colorBlue);
+      colorPickerWindow.appendChild(colorMagenta);
+      colorPickerWindow.appendChild(colorGreen);
+
+      promptWindow.appendChild(colorPickerWindow);
+
+      colorPickerWindowIsOpen = true;
+    } else if (colorPickerWindowIsOpen === true) {
+      document
+        .querySelector(".prompt-window")
+        .removeChild(document.querySelector(".color-picker-window"));
+      colorPickerWindowIsOpen = false;
+    }
+  });
 }
 
 export function createListInDom() {
@@ -67,6 +113,7 @@ export function createListInDom() {
         list.checked = checkbox.checked;
         localStorage.setItem("lists", JSON.stringify(lists));
       });
+
       listWrapper.appendChild(listName);
       listName.appendChild(checkbox);
       document.querySelector(".left-side").appendChild(listWrapper);
