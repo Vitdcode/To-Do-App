@@ -1,18 +1,35 @@
-let lists = [];
-export function getList() {
-  return lists;
-}
+export let lists = [];
 
 class List {
-  constructor(name) {
+  constructor(name, checked = true) {
     this.name = name;
+    this.checked = checked;
   }
+
+  /*   get name() {
+    return this._name;
+  }
+
+  set name(newName) {
+    this._name = newName;
+  }
+
+  get checked() {
+    return this._checked;
+  }
+
+  set checked(newChecked) {
+    this._checked = newChecked;
+  } */
 }
 
-export function pushListToListsArray() {
+function pushToListFromInputField() {
   const promptInputField = document.querySelector(".new-list-input-field");
+  pushListToListsArray(promptInputField.value);
+}
 
-  const list = new List(promptInputField.value);
+export function pushListToListsArray(name, checked) {
+  const list = new List(name, checked);
   lists.push(list);
-  console.table(lists);
+  localStorage.setItem("lists", JSON.stringify(lists));
 }

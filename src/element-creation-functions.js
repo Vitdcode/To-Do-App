@@ -1,5 +1,5 @@
 import closeicon from "../src/images/remove.png";
-import { getList } from "./listhandling.js";
+import { lists } from "./listhandling.js";
 
 export function createListButton() {
   const leftSideWrapper = document.querySelector(".left-side");
@@ -39,41 +39,37 @@ export function prompt() {
   document.body.appendChild(backdrop);
 }
 
-/* document.querySelector(".left-side").removeChild(".listWrapper"); */
-/*  document.querySelectorAll(".listWrapper").forEach((e) => e.remove()); */
-/*   listWrapper.classList.add("listWrapper"); */
-
 export function createListInDom() {
   const listWrapper = document.querySelector(".listWrapper");
 
-  getList().forEach((list, index) => {
+  lists.forEach((list, index) => {
     const existingListItem = listWrapper.querySelector(`#list-${index}`);
-    console.log(existingListItem);
     if (!existingListItem) {
       const listName = document.createElement("p");
       listName.id = `list-${index}`;
-      listName.textContent = `${list.name}`;
+      listName.classList.add("all-lists");
+      listName.textContent = list.name;
 
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `checkbox-${index}`;
+      checkbox.checked = list.checked;
+      checkbox.classList.add("list-checkbox");
+
+      listName.addEventListener("click", () => {
+        checkbox.checked = !checkbox.checked;
+        list.checked = checkbox.checked;
+        localStorage.setItem("lists", JSON.stringify(lists));
+      });
+
+      checkbox.addEventListener("click", (event) => {
+        event.stopPropagation();
+        list.checked = checkbox.checked;
+        localStorage.setItem("lists", JSON.stringify(lists));
+      });
       listWrapper.appendChild(listName);
+      listName.appendChild(checkbox);
       document.querySelector(".left-side").appendChild(listWrapper);
     }
   });
 }
-
-/* export function createListInDom() {
-  const listWrapper = document.querySelector(".listWrapper");
-
-  getList().forEach((list, index) => {
-    const existingListItem = listWrapper.querySelector(`#list-${index}`);
-
-    if (!existingListItem) {
-      const listName = document.createElement("p");
-      listName.id = `list-${index}`;
-      listName.textContent = `${list.name}`;
-
-      listWrapper.appendChild(listName);
-    }
-  });
-
-  document.querySelector(".left-side").appendChild(listWrapper);
-} */

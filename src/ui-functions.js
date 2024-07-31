@@ -32,10 +32,11 @@ export function closePromptButton() {
 }
 
 export function createListItem() {
+  const promptInputField = document.querySelector(".new-list-input-field");
   if (promptIsopen) {
     const createListBtnInPrompt = document.querySelector(".prompt-create-list-button"); //prettier-ignore
     createListBtnInPrompt.addEventListener("click", () => {
-      pushListToListsArray();
+      pushListToListsArray(promptInputField.value);
       createListInDom();
     });
   }

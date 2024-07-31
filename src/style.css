@@ -68,6 +68,15 @@ body {
   cursor: pointer;
 }
 
+.all-lists {
+  display: flex;
+  justify-content: space-around;
+}
+
+.list-checkbox {
+  width: 20px;
+}
+
 .listWrapper p:hover {
   background-color: rgb(124, 226, 175);
 }
