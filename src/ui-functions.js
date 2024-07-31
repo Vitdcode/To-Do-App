@@ -1,6 +1,8 @@
 import { prompt } from "./element-creation-functions.js";
 import { pushListToListsArray } from "./listhandling.js";
 import { createListInDom } from "./element-creation-functions.js";
+import { currentListColor } from "./element-creation-functions.js";
+import { lists } from "./listhandling.js";
 
 let promptIsopen = false;
 
@@ -36,7 +38,7 @@ export function createListItem() {
   if (promptIsopen) {
     const createListBtnInPrompt = document.querySelector(".prompt-create-list-button"); //prettier-ignore
     createListBtnInPrompt.addEventListener("click", () => {
-      pushListToListsArray(promptInputField.value);
+      pushListToListsArray(promptInputField.value, true, currentListColor);
       createListInDom();
     });
   }

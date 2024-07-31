@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const parsedLists = JSON.parse(localStorageLists);
     console.log(parsedLists);
     parsedLists.forEach((list) => {
-      pushListToListsArray(list.name, list.checked);
+      pushListToListsArray(list.name, list.checked, list.color);
       createListInDom();
     });
   }

@@ -24,14 +24,8 @@ class List {
   } */
 }
 
-function pushToListFromInputField() {
-  const promptInputField = document.querySelector(".new-list-input-field");
-  pushListToListsArray(promptInputField.value);
-}
-
-export function pushListToListsArray(name, checked) {
-  const list = new List(name, checked);
+export function pushListToListsArray(name, checked, color) {
+  const list = new List(name, checked, color);
   lists.push(list);
   localStorage.setItem("lists", JSON.stringify(lists));
-  console.log(localStorage);
 }

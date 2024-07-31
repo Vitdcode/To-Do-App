@@ -11,6 +11,7 @@ export function createListButton() {
 
 export function prompt() {
   const promptHeaderText = document.createElement("p");
+  promptHeaderText.classList.add("prompt-header");
   promptHeaderText.textContent = "Create new List";
 
   //prompt window
@@ -24,6 +25,7 @@ export function prompt() {
   const createListButton = document.createElement("button");
   createListButton.classList.add("prompt-create-list-button");
   createListButton.textContent = "Create List";
+
   // close prompt button
   const closePromptIcon = document.createElement("img");
   closePromptIcon.classList.add("close-prompt-icon");
@@ -46,7 +48,14 @@ export function prompt() {
   listColorSelectorWindow();
 }
 
+export let currentListColor = `rgb(121, 232, 195)`;
+
 function listColorSelectorWindow() {
+  const createListButton = document.querySelector(".prompt-create-list-button");
+  const promptHeaderText = document.querySelector(".prompt-header");
+  const colorPickerInitial = document.querySelector(
+    ".prompt-color-picker-initial"
+  );
   const initialColorForColorPicker = document.querySelector(".prompt-color-picker-initial"); //prettier-ignore
   const promptWindow = document.querySelector(".prompt-window");
   let colorPickerWindowIsOpen = false;
@@ -58,15 +67,39 @@ function listColorSelectorWindow() {
 
       const colorRed = document.createElement("div");
       colorRed.style.backgroundColor = `rgba(238, 97, 97, 0.658)`;
+      colorRed.addEventListener("click", () => {
+        currentListColor = `rgba(238, 97, 97, 0.658)`;
+        createListButton.style.backgroundColor = `rgba(238, 97, 97, 0.658)`;
+        promptHeaderText.style.backgroundColor = `rgba(238, 97, 97, 0.658)`;
+        colorPickerInitial.style.backgroundColor = `rgba(238, 97, 97, 0.658)`;
+      });
 
       const colorBlue = document.createElement("div");
       colorBlue.style.backgroundColor = `rgba(61, 153, 240, 0.658)`;
+      colorBlue.addEventListener("click", () => {
+        currentListColor = `rgba(61, 153, 240, 0.658)`;
+        createListButton.style.backgroundColor = `rgba(61, 153, 240, 0.658)`;
+        promptHeaderText.style.backgroundColor = `rgba(61, 153, 240, 0.658)`;
+        colorPickerInitial.style.backgroundColor = `rgba(61, 153, 240, 0.658)`;
+      });
 
       const colorMagenta = document.createElement("div");
       colorMagenta.style.backgroundColor = `rgba(183, 67, 236, 0.658)`;
+      colorMagenta.addEventListener("click", () => {
+        currentListColor = `rgba(183, 67, 236, 0.658)`;
+        createListButton.style.backgroundColor = `rgba(183, 67, 236, 0.658)`;
+        promptHeaderText.style.backgroundColor = `rgba(183, 67, 236, 0.658)`;
+        colorPickerInitial.style.backgroundColor = `rgba(183, 67, 236, 0.658)`;
+      });
 
       const colorGreen = document.createElement("div");
       colorGreen.style.backgroundColor = `rgba(62, 231, 175, 0.658)`;
+      colorGreen.addEventListener("click", () => {
+        currentListColor = `rgba(62, 231, 175, 0.658)`;
+        createListButton.style.backgroundColor = `rgba(62, 231, 175, 0.658)`;
+        promptHeaderText.style.backgroundColor = `rgba(62, 231, 175, 0.658)`;
+        colorPickerInitial.style.backgroundColor = `rgba(62, 231, 175, 0.658)`;
+      });
 
       colorPickerWindow.appendChild(colorRed);
       colorPickerWindow.appendChild(colorBlue);
@@ -95,6 +128,7 @@ export function createListInDom() {
       listName.id = `list-${index}`;
       listName.classList.add("all-lists");
       listName.textContent = list.name;
+      listName.style.backgroundColor = list.color;
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
