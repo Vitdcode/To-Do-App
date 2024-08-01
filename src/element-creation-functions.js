@@ -21,6 +21,7 @@ export function prompt() {
   const inputField = document.createElement("input");
   inputField.classList.add("new-list-input-field");
   inputField.id = "Create new List Input";
+
   //create new list button inside prompt
   const createListButton = document.createElement("button");
   createListButton.classList.add("prompt-create-list-button");
@@ -118,14 +119,16 @@ function listColorSelectorWindow() {
   });
 }
 
-export function createListInDom() {
+export function createListInDomLeftSide() {
   const listWrapper = document.querySelector(".listWrapper");
 
   lists.forEach((list, index) => {
     const existingListItem = listWrapper.querySelector(`#list-${index}`);
+
     if (!existingListItem) {
       const listName = document.createElement("p");
       listName.id = `list-${index}`;
+
       listName.classList.add("all-lists");
       listName.textContent = list.name;
       listName.style.backgroundColor = list.color;
@@ -139,18 +142,44 @@ export function createListInDom() {
       listName.addEventListener("click", () => {
         checkbox.checked = !checkbox.checked;
         list.checked = checkbox.checked;
+        createListInDomRightSide(list, listName.id);
         localStorage.setItem("lists", JSON.stringify(lists));
       });
 
       checkbox.addEventListener("click", (event) => {
         event.stopPropagation();
         list.checked = checkbox.checked;
+        console.log(list);
+        createListInDomRightSide(list, listName.id);
         localStorage.setItem("lists", JSON.stringify(lists));
       });
 
       listWrapper.appendChild(listName);
       listName.appendChild(checkbox);
       document.querySelector(".left-side").appendChild(listWrapper);
+      createListInDomRightSide(list, listName.id);
     }
   });
+}
+
+function createListInDomRightSide(list, index) {
+  const rightSideWrapper = document.querySelector(".right-side");
+
+  const listWrapper = document.createElement("div");
+  listWrapper.id = index;
+  listWrapper.classList.add("listWrapper-right");
+  const existingList = rightSideWrapper.querySelector(`#${listWrapper.id}`);
+
+  const listName = document.createElement("p");
+  listName.textContent = list.name;
+  listName.classList.add("list-name-header-right-side");
+
+  if (list.checked) {
+    listWrapper.appendChild(listName);
+    rightSideWrapper.appendChild(listWrapper);
+    listWrapper.style.backgroundColor = list.color;
+  } else if (list.checked === false && existingList) {
+    rightSideWrapper.removeChild(existingList);
+    localStorage.setItem("lists", JSON.stringify(lists));
+  }
 }

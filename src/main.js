@@ -1,5 +1,8 @@
 import "./style.css";
-import { createListButton } from "./element-creation-functions.js";
+import {
+  createListButton,
+  createListInDomLeftSide,
+} from "./element-creation-functions.js";
 import { summonPrompt } from "./ui-functions.js";
 import { createListItem } from "./ui-functions.js";
 import { createListInDom } from "./element-creation-functions.js";
@@ -16,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(parsedLists);
     parsedLists.forEach((list) => {
       pushListToListsArray(list.name, list.checked, list.color);
-      createListInDom();
+      createListInDomLeftSide();
     });
   }
   createListItem();
