@@ -6,6 +6,7 @@ import { pushListToListsArray } from "./listhandling.js";
 import { createListInDom } from "./element-creation-functions.js";
 import { currentListColor } from "./element-creation-functions.js";
 import { lists } from "./listhandling.js";
+import { addToDoElements } from "./element-creation-functions.js";
 
 let promptIsopen = false;
 
@@ -45,4 +46,20 @@ export function createListItem() {
       createListInDomLeftSide();
     });
   }
+}
+
+export function addToDoCollapsible(addToDoHeadlineButtonID) {
+  const coll = document.querySelector(`#${addToDoHeadlineButtonID}`);
+
+  coll.addEventListener("click", function () {
+    this.classList.toggle("active");
+    const content = this.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+      content.style.padding = 0 + "px";
+    } else {
+      content.style.maxHeight = 130 + "px";
+      content.style.padding = 20 + "px";
+    }
+  });
 }

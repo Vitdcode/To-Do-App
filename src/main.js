@@ -2,10 +2,10 @@ import "./style.css";
 import {
   createListButton,
   createListInDomLeftSide,
+  addToDoItemsFromStorage,
 } from "./element-creation-functions.js";
 import { summonPrompt } from "./ui-functions.js";
 import { createListItem } from "./ui-functions.js";
-import { createListInDom } from "./element-creation-functions.js";
 import { lists, pushListToListsArray } from "./listhandling.js";
 
 createListButton();
@@ -18,7 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const parsedLists = JSON.parse(localStorageLists);
     console.log(parsedLists);
     parsedLists.forEach((list) => {
-      pushListToListsArray(list.name, list.checked, list.color);
+      pushListToListsArray(
+        list.name,
+        list.checked,
+        list.color,
+        list.toDo,
+        list.toDoChecked
+      );
       createListInDomLeftSide();
     });
   }

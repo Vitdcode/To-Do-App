@@ -11,6 +11,10 @@ body {
   background-size: cover;
 }
 
+button {
+  font-family: "Poppins", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -76,27 +80,27 @@ body {
   margin-top: 30px;
 }
 
-.listWrapper p {
-  background-color: rgb(124, 226, 175, 0.7);
-  padding: 10px;
+.all-lists {
+  display: flex;
   border-radius: 15px;
-  margin-inline: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  transition-duration: 100ms;
+  outline: transparent;
+  margin-inline: 20px;
   font-weight: 500;
   cursor: pointer;
 }
 
-.all-lists {
-  display: flex;
-  justify-content: space-around;
+.all-lists:hover {
+  outline: 2.5px solid beige;
 }
 
 .list-checkbox {
   width: 20px;
+  margin-right: 20px;
 }
 
-.listWrapper p:hover {
-  background-color: rgb(124, 226, 175);
-}
 /* right side */
 
 .right-side {
@@ -109,13 +113,115 @@ body {
 .listWrapper-right {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
   width: 300px;
   height: 500px;
   border-radius: 15px;
   margin-left: 40px;
   margin-top: 40px;
+  overflow: auto;
+  box-shadow: var(--boxshadowCardTemplate);
+}
+
+.list-name-header-right-side {
+  font-size: 1.3rem;
+  margin-inline: auto;
+  text-decoration: underline;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  color: rgba(54, 54, 54, 0.973);
+}
+
+.add-a-to-do {
+  text-decoration: underline;
+  border: none;
+  color: rgba(37, 37, 37, 0.973);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition-duration: 200ms;
+}
+
+.active,
+.input-and-add-to-list-button-wrapper {
+  background-color: rgba(114, 231, 192, 0.685);
+}
+
+.add-a-to-do:after {
+  content: "\002B";
+  color: rgb(63, 62, 62);
+  font-weight: bold;
+  float: right;
+  margin-inline: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.add-a-to-do:hover {
+  background-color: rgb(134, 255, 230);
+  cursor: pointer;
+}
+
+.input-and-add-to-list-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.to-do-inputfield {
+  height: 30px;
+  /* width: 80%; */
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 15px;
+  padding-left: 5px;
+  font-size: 1rem;
+}
+
+.to-do-inputfield:focus {
+  outline: 1.5px solid rgb(120, 146, 231);
+}
+
+.add-to-list-button {
+  height: 40px;
+  width: 140px;
+  background-color: rgb(38, 114, 255);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  /*   margin-bottom: 30px; */
+}
+
+.add-to-list-button:hover {
+  background-color: rgb(83, 143, 255);
+  cursor: pointer;
+}
+
+.to-do-checkbox-and-text-wrapper {
+  margin-top: 30px;
+  margin-inline: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.to-do-checkbox-and-text-wrapper input {
+  width: 20px;
+}
+
+.to-do-checkbox-and-text-wrapper input:hover {
+  cursor: pointer;
+}
+
+.to-do-checkbox-and-text-wrapper:hover {
+  background-color: beige;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 /* prompt window */
@@ -135,14 +241,14 @@ body {
   transform: translate(-50%, -50%);
   height: 300px;
   width: 500px;
-  background-color: rgba(233, 233, 233, 0.603);
+  background-color: rgba(233, 233, 233, 0.8);
   box-shadow: var(--boxshadowCardTemplate);
   animation: fadeIn 350ms ease-in;
   z-index: 2;
 }
 
 .prompt-window p {
-  background-color: rgba(62, 231, 175, 0.658);
+  background-color: rgba(212, 212, 212, 0.658);
   padding: 6px;
   border-radius: 10px;
 }
@@ -169,7 +275,7 @@ body {
   border: none;
   font-size: 0.9rem;
   font-weight: bold;
-  background-color: rgb(120, 231, 194);
+  background-color: rgba(212, 212, 212, 0.9);
 }
 
 .prompt-create-list-button:hover {

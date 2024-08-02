@@ -1,31 +1,30 @@
 export let lists = [];
 
 class List {
-  constructor(name, checked = true, color = `rgb(121, 232, 195)`) {
+  constructor(
+    name,
+    checked = true,
+    color = `rgba(180, 180, 180, 0.658)`,
+    toDo = [],
+    toDoChecked = false
+  ) {
     this.name = name;
     this.checked = checked;
     this.color = color;
+    this.toDo = toDo;
+    this.toDoChecked = toDoChecked;
+    this.checkBoxToDoCounter = 0;
   }
-
-  /*   get name() {
-    return this._name;
+  checkboxCounterToDo() {
+    this.checkBoxToDoCounter += 1;
+    return this.checkBoxToDoCounter;
   }
-
-  set name(newName) {
-    this._name = newName;
-  }
-
-  get checked() {
-    return this._checked;
-  }
-
-  set checked(newChecked) {
-    this._checked = newChecked;
-  } */
 }
 
-export function pushListToListsArray(name, checked, color) {
-  const list = new List(name, checked, color);
+export default List;
+
+export function pushListToListsArray(name, checked, color, toDo, toDoChecked) {
+  const list = new List(name, checked, color, toDo, toDoChecked);
   lists.push(list);
-  localStorage.setItem("lists", JSON.stringify(lists));
+  /*   localStorage.setItem("lists", JSON.stringify(lists)); */
 }
