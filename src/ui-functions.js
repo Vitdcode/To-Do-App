@@ -2,11 +2,8 @@ import {
   createListInDomLeftSide,
   prompt,
 } from "./element-creation-functions.js";
-import { pushListToListsArray } from "./listhandling.js";
-import { createListInDom } from "./element-creation-functions.js";
+import { pushListToListsArray, lists } from "./listhandling.js";
 import { currentListColor } from "./element-creation-functions.js";
-import { lists } from "./listhandling.js";
-import { addToDoElements } from "./element-creation-functions.js";
 
 let promptIsopen = false;
 
@@ -63,3 +60,14 @@ export function addToDoCollapsible(addToDoHeadlineButtonID) {
     }
   });
 }
+
+export function deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapperID, list) { 
+console.log(toDoCheckboxAndTextWrapperID);
+  newToDoItemCheckbox.addEventListener("change", () => {
+    if (newToDoItemCheckbox.checked) {
+      document.querySelector(`#${toDoCheckboxAndTextWrapperID}`).remove();
+      list.toDo.splice(`${(toDoCheckboxAndTextWrapperID.split('-')[4])-1}`, 1);
+      localStorage.setItem("lists", JSON.stringify(lists));
+    }
+  });
+} //prettier-ignore

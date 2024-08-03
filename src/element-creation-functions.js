@@ -1,7 +1,7 @@
 import closeicon from "../src/images/remove.png";
 import { lists } from "./listhandling.js";
-import { pushListToListsArray } from "./listhandling.js";
 import { addToDoCollapsible } from "./ui-functions.js";
+import { deleteToDoItem } from "./ui-functions.js";
 
 export function createListButton() {
   const leftSideWrapper = document.querySelector(".left-side");
@@ -233,15 +233,24 @@ export function addToDoElements(list, listWrapperRight) {
 function addToDoItem(list, listWrapperRight, inputID, buttonID) {
   document.querySelector(`#${buttonID}`).addEventListener("click", () => {
     const toDoCheckboxAndTextWrapper = document.createElement("div");
-
+    toDoCheckboxAndTextWrapper.id = `list-${
+      list.name
+    }-todo-item-${list.incrementToDoItemCounter()}`;
     toDoCheckboxAndTextWrapper.classList.add("to-do-checkbox-and-text-wrapper");
+
     const input = document.querySelector(`#${inputID}`);
 
     const newToDoItem = document.createElement("div");
+    newToDoItem.id = `list-${list.name}-list-item-${
+      listWrapperRight.id.split("-")[2]
+    }`;
     newToDoItem.textContent = input.value;
     const newToDoItemCheckbox = document.createElement("input");
     newToDoItemCheckbox.type = "checkbox";
     newToDoItemCheckbox.id = `checkbox-${list.name}-todo-${list.checkboxCounterToDo()}`; //prettier-ignore
+    newToDoItemCheckbox.checked = list.toDoChecked;
+    deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapper.id, list);
+
     toDoCheckboxAndTextWrapper.appendChild(newToDoItem);
     toDoCheckboxAndTextWrapper.appendChild(newToDoItemCheckbox);
 
@@ -261,6 +270,9 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       toDoCheckboxAndTextWrapper.classList.add(
         "to-do-checkbox-and-text-wrapper"
       );
+      toDoCheckboxAndTextWrapper.id = `list-${
+        list.name
+      }-todo-item-${list.incrementToDoItemCounter()}`;
 
       const newToDoItem = document.createElement("div");
       newToDoItem.textContent = todo;
@@ -270,6 +282,7 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       toDoCheckboxAndTextWrapper.appendChild(newToDoItem);
       toDoCheckboxAndTextWrapper.appendChild(newToDoItemCheckbox);
       listWrapperRight.appendChild(toDoCheckboxAndTextWrapper);
+      deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapper.id, list);
     });
   }
 }

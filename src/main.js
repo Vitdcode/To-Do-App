@@ -2,7 +2,6 @@ import "./style.css";
 import {
   createListButton,
   createListInDomLeftSide,
-  addToDoItemsFromStorage,
 } from "./element-creation-functions.js";
 import { summonPrompt } from "./ui-functions.js";
 import { createListItem } from "./ui-functions.js";
