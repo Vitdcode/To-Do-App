@@ -113,7 +113,7 @@ button {
 .listWrapper-right {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 400px;
   height: 500px;
   border-radius: 15px;
   margin-left: 40px;
@@ -174,7 +174,6 @@ button {
 
 .to-do-inputfield {
   height: 30px;
-  /* width: 80%; */
   border-radius: 5px;
   border: none;
   margin-bottom: 15px;
@@ -194,7 +193,6 @@ button {
   font-weight: 500;
   border-radius: 10px;
   border: none;
-  /*   margin-bottom: 30px; */
 }
 
 .add-to-list-button:hover {
@@ -203,15 +201,74 @@ button {
 }
 
 .to-do-checkbox-and-text-wrapper {
+  /*   position: relative; */
   margin-top: 30px;
-  margin-inline: 30px;
-  display: flex;
-  justify-content: space-between;
+  margin-inline: 20px;
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+
+  grid-template-rows: 40px 1fr;
+
   padding: 10px;
+  z-index: 1;
+}
+
+.notes-text-and-area-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 20px;
+  /*   grid-column: span 4;
+  grid-template-rows: 40px 1fr; */
+  gap: 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.notes-text-and-area-wrapper:after {
+  background-color: beige;
+}
+
+.to-do-checkbox-and-text-wrapper:after {
+  display: flex;
+  align-items: center;
+  content: "\002B";
+  color: black;
+  font-weight: bold;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  margin-left: 5px;
+}
+
+.active-add-notes:after {
+  content: "\2212";
+}
+
+textarea {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+  resize: none;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.notes-text-and-area-wrapper p {
+  /*   grid-column: 1/3; */
+  font-weight: bold;
+  color: rgb(38, 120, 255);
+}
+
+.to-do-checkbox-and-text-wrapper div {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
 }
 
 .to-do-checkbox-and-text-wrapper input {
   width: 20px;
+  grid-column: 3/4;
 }
 
 .to-do-checkbox-and-text-wrapper input:hover {

@@ -1,7 +1,7 @@
 import closeicon from "../src/images/remove.png";
 import { lists } from "./listhandling.js";
 import { addToDoCollapsible } from "./ui-functions.js";
-import { deleteToDoItem } from "./ui-functions.js";
+import { deleteToDoItem, addtoDoItemCollapsible } from "./ui-functions.js";
 
 export function createListButton() {
   const leftSideWrapper = document.querySelector(".left-side");
@@ -256,7 +256,7 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
 
     listWrapperRight.appendChild(toDoCheckboxAndTextWrapper);
     list.toDo.push(newToDoItem.textContent);
-
+    addNotesToDoItem(toDoCheckboxAndTextWrapper.id, list, listWrapperRight);
     localStorage.setItem("lists", JSON.stringify(lists));
   });
   addToDoItemsFromStorage(list, listWrapperRight);
@@ -285,4 +285,25 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapper.id, list);
     });
   }
+}
+
+function addNotesToDoItem(
+  toDoCheckboxAndTextWrapperID,
+  list,
+  listWrapperRight
+) {
+  console.log(toDoCheckboxAndTextWrapperID.split("-")[4] - 1);
+  const addNotesText = document.createElement("p");
+  addNotesText.textContent = `Add Notes for ${
+    list.toDo[`${toDoCheckboxAndTextWrapperID.split("-")[4] - 1}`]
+  }`;
+  const notesTextArea = document.createElement("textarea");
+  const notesTextAndAreaWrapper = document.createElement("div");
+  notesTextAndAreaWrapper.classList.add("notes-text-and-area-wrapper");
+  notesTextAndAreaWrapper.appendChild(addNotesText);
+  notesTextAndAreaWrapper.appendChild(notesTextArea);
+
+  listWrapperRight.appendChild(notesTextAndAreaWrapper);
+
+  addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID);
 }

@@ -61,11 +61,27 @@ export function addToDoCollapsible(addToDoHeadlineButtonID) {
   });
 }
 
+export function addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID) {
+  const coll = document.querySelector(`#${toDoCheckboxAndTextWrapperID}`);
+
+  coll.addEventListener("click", function () {
+    this.classList.toggle("active-add-notes");
+    const content = this.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = 400 + "px";
+    }
+  });
+}
+
 export function deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapperID, list) { 
-console.log(toDoCheckboxAndTextWrapperID);
+
   newToDoItemCheckbox.addEventListener("change", () => {
     if (newToDoItemCheckbox.checked) {
-      document.querySelector(`#${toDoCheckboxAndTextWrapperID}`).remove();
+      const toDoCheckboxAndTextWrapper = document.querySelector(`#${toDoCheckboxAndTextWrapperID}`);
+      toDoCheckboxAndTextWrapper.nextElementSibling.remove();
+      toDoCheckboxAndTextWrapper.remove();
       list.toDo.splice(`${(toDoCheckboxAndTextWrapperID.split('-')[4])-1}`, 1);
       localStorage.setItem("lists", JSON.stringify(lists));
     }
