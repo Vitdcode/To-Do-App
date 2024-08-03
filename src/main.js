@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         list.checked,
         list.color,
         list.toDo,
+        list.toDoTextArea,
         list.toDoChecked
       );
       createListInDomLeftSide();

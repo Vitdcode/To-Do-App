@@ -83,6 +83,10 @@ export function deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapperID
       toDoCheckboxAndTextWrapper.nextElementSibling.remove();
       toDoCheckboxAndTextWrapper.remove();
       list.toDo.splice(`${(toDoCheckboxAndTextWrapperID.split('-')[4])-1}`, 1);
+      list.toDoTextArea = [];
+      list.checkBoxToDoCounter-=1;
+      list.toDoItemCounter-=1;
+      console.log(list);
       localStorage.setItem("lists", JSON.stringify(lists));
     }
   });

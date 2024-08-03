@@ -6,12 +6,19 @@ class List {
     checked = true,
     color = `rgba(180, 180, 180, 0.658)`,
     toDo = [],
+    toDoTextArea = [
+      {
+        textAreaValue: "",
+        textAreaID: "",
+      },
+    ],
     toDoChecked = false
   ) {
     this.name = name;
     this.checked = checked;
     this.color = color;
     this.toDo = toDo;
+    this.toDoTextArea = toDoTextArea;
     this.toDoChecked = toDoChecked;
     this.checkBoxToDoCounter = 0;
     this.toDoItemCounter = 0;
@@ -33,7 +40,14 @@ class List {
 
 export default List;
 
-export function pushListToListsArray(name, checked, color, toDo, toDoChecked) {
-  const list = new List(name, checked, color, toDo, toDoChecked);
+export function pushListToListsArray(
+  name,
+  checked,
+  color,
+  toDo,
+  toDoTextArea,
+  toDoChecked
+) {
+  const list = new List(name, checked, color, toDo, toDoTextArea, toDoChecked);
   lists.push(list);
 }
