@@ -238,12 +238,14 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
     }-todo-item-${list.incrementToDoItemCounter()}`;
     toDoCheckboxAndTextWrapper.classList.add("to-do-checkbox-and-text-wrapper");
 
+    list.toDoTextArea.push({
+      textAreaValue: "",
+      textAreaID: toDoCheckboxAndTextWrapper.id.split("-")[4],
+    });
+
     const input = document.querySelector(`#${inputID}`);
 
     const newToDoItem = document.createElement("div");
-    /*    newToDoItem.id = `list-${list.name}-list-toDoitem-${
-      listWrapperRight.id.split("-")[2]
-    }`; */
 
     newToDoItem.textContent = input.value;
     const newToDoItemCheckbox = document.createElement("input");
@@ -269,7 +271,6 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
 }
 
 export function addToDoItemsFromStorage(list, listWrapperRight) {
-  console.log(list);
   if (list.toDo != "") {
     list.toDo.forEach((todo) => {
       const toDoCheckboxAndTextWrapper = document.createElement("div");
@@ -309,9 +310,7 @@ function addNotesToDoItem(
   }`;
   const notesTextArea = document.createElement("textarea");
   notesTextArea.id = `${toDoCheckboxAndTextWrapperID}-textarea`;
-  notesTextAreaListener(notesTextArea, list);
-
-  notesTextArea.value = list.toDoTextArea;
+  linkingTextAreaToDoItem(notesTextArea, list, toDoCheckboxAndTextWrapperID);
   const notesTextAndAreaWrapper = document.createElement("div");
   notesTextAndAreaWrapper.classList.add("notes-text-and-area-wrapper");
   notesTextAndAreaWrapper.appendChild(addNotesText);
@@ -322,14 +321,30 @@ function addNotesToDoItem(
   addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID);
 }
 
-function notesTextAreaListener(textArea, list) {
-  textArea.addEventListener("change", () => {
-    console.log(list);
-    /*  list.toDoTextArea.push(textArea.value, `${textArea.id.split("-")[4]}`); */
-    list.toDoTextArea.push({
-      textAreaValue: textArea.value,
-      textAreaID: `${textArea.id.split("-")[4]}`,
+function linkingTextAreaToDoItem(textArea, list, toDoCheckboxAndTextWrapperID) {
+  const toDoID = toDoCheckboxAndTextWrapperID.split("-")[4];
+
+  for (const key in list.toDoTextArea) {
+    textArea.addEventListener("change", () => {
+      if (list.toDoTextArea[key].textAreaValue == "") {
+        list.toDoTextArea[key].textAreaValue = textArea.value + "\r\n";
+        list.toDoTextArea[key].textAreaID = `${toDoID}`;
+        localStorage.setItem("lists", JSON.stringify(lists));
+        return;
+      } else if (
+        list.toDoTextArea[key].textAreaValue != "" &&
+        `${toDoID}` === list.toDoTextArea[key].textAreaID
+      ) {
+        list.toDoTextArea[key].textAreaValue = textArea.value + "\r\n";
+        list.toDoTextArea[key].textAreaID = `${toDoID}`;
+        localStorage.setItem("lists", JSON.stringify(lists));
+        return;
+      }
     });
-    localStorage.setItem("lists", JSON.stringify(lists));
-  });
+
+    if (`${toDoID}` === list.toDoTextArea[key].textAreaID) {
+      textArea.value = list.toDoTextArea[key].textAreaValue;
+      localStorage.setItem("lists", JSON.stringify(lists));
+    }
+  }
 }

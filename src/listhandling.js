@@ -7,10 +7,10 @@ class List {
     color = `rgba(180, 180, 180, 0.658)`,
     toDo = [],
     toDoTextArea = [
-      {
-        textAreaValue: "",
+      /*   {
+         textAreaValue: "",
         textAreaID: "",
-      },
+      }, */
     ],
     toDoChecked = false
   ) {

@@ -78,12 +78,17 @@ export function addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID) {
 export function deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapperID, list) { 
 
   newToDoItemCheckbox.addEventListener("change", () => {
+    const todoID = `${(toDoCheckboxAndTextWrapperID.split('-')[4])}`
     if (newToDoItemCheckbox.checked) {
       const toDoCheckboxAndTextWrapper = document.querySelector(`#${toDoCheckboxAndTextWrapperID}`);
       toDoCheckboxAndTextWrapper.nextElementSibling.remove();
       toDoCheckboxAndTextWrapper.remove();
-      list.toDo.splice(`${(toDoCheckboxAndTextWrapperID.split('-')[4])-1}`, 1);
-      list.toDoTextArea = [];
+      list.toDo.splice(`${todoID-1}`, 1);
+      console.log([`${todoID-1}`]);
+      list.toDoTextArea.splice([`${todoID-1}`], 1);
+      if(list.toDoTextArea[`${todoID-1}`]) {
+      list.toDoTextArea[`${todoID-1}`].textAreaID = `${todoID}`;
+    }
       list.checkBoxToDoCounter-=1;
       list.toDoItemCounter-=1;
       console.log(list);

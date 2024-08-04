@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (localStorageLists) {
     const parsedLists = JSON.parse(localStorageLists);
-    console.log(parsedLists);
     parsedLists.forEach((list) => {
       pushListToListsArray(
         list.name,
