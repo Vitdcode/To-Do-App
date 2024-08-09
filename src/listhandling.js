@@ -12,7 +12,8 @@ class List {
     toDo = [],
     toDoTextArea = [],
     toDoChecked = false,
-    id = 0
+    id = 0,
+    priority = "Medium"
   ) {
     this.name = name;
     this.checked = checked;
@@ -20,6 +21,7 @@ class List {
     this.toDo = toDo;
     this.toDoTextArea = toDoTextArea;
     this.toDoChecked = toDoChecked;
+    this.priority = priority;
     this.id = id;
     this.checkBoxToDoCounter = 0;
     this.toDoItemCounter = 0;
@@ -51,8 +53,17 @@ export function pushListToListsArray(
   color,
   toDo,
   toDoTextArea,
-  toDoChecked
+  toDoChecked,
+  priority
 ) {
-  const list = new List(name, checked, color, toDo, toDoTextArea, toDoChecked);
+  const list = new List(
+    name,
+    checked,
+    color,
+    toDo,
+    toDoTextArea,
+    toDoChecked,
+    priority
+  );
   lists.push(list);
 }

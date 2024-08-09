@@ -222,12 +222,7 @@ function createListInDomRightSide(list, index, listWrapperLeft) {
 
 export function addToDoElements(list, listWrapperRight) {
   const toDoCard = document.querySelector(`#${listWrapperRight.id}`);
-  const addtoListButton = document.createElement("button");
-  addtoListButton.id = `add-to-list-button-${
-    listWrapperRight.id.split("-")[2]
-  }`;
-  addtoListButton.textContent = "Add to List";
-  addtoListButton.classList.add("add-to-list-button");
+
   const addToDoHeadline = document.createElement("button");
   addToDoHeadline.classList.add("add-a-to-do");
   addToDoHeadline.id = `add-to-headline-button-${listWrapperRight.id.split("-")[2]}` //prettier-ignore
@@ -237,17 +232,87 @@ export function addToDoElements(list, listWrapperRight) {
   toDoInputfield.id = `to-do-inputfield-${listWrapperRight.id.split("-")[2]}`;
   toDoInputfield.classList.add("to-do-inputfield");
 
+  const addtoListButton = document.createElement("button");
+  addtoListButton.id = `add-to-list-button-${
+    listWrapperRight.id.split("-")[2]
+  }`;
+  addtoListButton.textContent = "Add to List";
+  addtoListButton.classList.add("add-to-list-button");
+
+  const toDoLowPriority = document.createElement("button");
+  toDoLowPriority.classList.add("priority-buttons");
+  toDoLowPriority.id = "toDoLowPriority";
+  toDoLowPriority.textContent = "Low";
+
+  const toDoMediumPriority = document.createElement("button");
+  toDoMediumPriority.classList.add("priority-buttons");
+  toDoMediumPriority.id = "toDoMediumPriority";
+  toDoMediumPriority.textContent = "Medium";
+
+  const toDoHighPriority = document.createElement("button");
+  toDoHighPriority.classList.add("priority-buttons");
+  toDoHighPriority.id = "toDoHighPriority";
+  toDoHighPriority.textContent = "High";
+
+  const priorityHeadline = document.createElement("p");
+  priorityHeadline.classList.add("priority-headline");
+  priorityHeadline.textContent = "Priority";
+
+  const priorityButtonsWrapper = document.createElement("div");
+  priorityButtonsWrapper.classList.add("priority-buttons-wrapper");
+
+  priorityButtonsWrapper.appendChild(toDoLowPriority);
+  priorityButtonsWrapper.appendChild(toDoMediumPriority);
+  priorityButtonsWrapper.appendChild(toDoHighPriority);
+
   const inputAddToListButtonWrapper = document.createElement("div");
   inputAddToListButtonWrapper.classList.add(
     "input-and-add-to-list-button-wrapper"
   );
   inputAddToListButtonWrapper.appendChild(toDoInputfield);
+  inputAddToListButtonWrapper.appendChild(priorityHeadline);
+  inputAddToListButtonWrapper.appendChild(priorityButtonsWrapper);
   inputAddToListButtonWrapper.appendChild(addtoListButton);
 
   toDoCard.appendChild(addToDoHeadline);
   toDoCard.appendChild(inputAddToListButtonWrapper);
+  prioritySetter(list, inputAddToListButtonWrapper, priorityButtonsWrapper);
   addToDoCollapsible(addToDoHeadline.id);
   addToDoItem(list, listWrapperRight, toDoInputfield.id, addtoListButton.id);
+}
+
+function prioritySetter(
+  list,
+  inputAddToListButtonWrapper,
+  priorityButtonsWrapper
+) {
+  const priorityToDoMarkerWrapper = document.createElement("div");
+  priorityToDoMarkerWrapper.classList.add("priority-todo-marker-wrapper");
+
+  const priorityToDoMarker = document.createElement("span");
+  priorityToDoMarker.classList.add("priority-todo-marker-wrapper");
+
+  priorityToDoMarker.textContent = list.priority;
+  priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
+  inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
+
+  priorityButtonsWrapper.addEventListener("click", (event) => {
+    const clickedButton = event.target;
+
+    if (clickedButton.id === "toDoLowPriority") {
+      priorityToDoMarker.textContent = "Low";
+      priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
+      inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
+    } else if (clickedButton.id === "toDoMediumPriority") {
+      priorityToDoMarker.textContent = "Medium";
+      priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
+      inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
+    } else if (clickedButton.id === "toDoHighPriority") {
+      priorityToDoMarker.textContent = "High";
+      priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
+      inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
+    }
+  });
 }
 
 function addToDoItem(list, listWrapperRight, inputID, buttonID) {

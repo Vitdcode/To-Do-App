@@ -79,8 +79,8 @@ export function addToDoCollapsible(addToDoHeadlineButtonID) {
       content.style.maxHeight = null;
       content.style.padding = 0 + "px";
     } else {
-      content.style.maxHeight = 130 + "px";
-      content.style.padding = 20 + "px";
+      content.style.maxHeight = 220 + "px";
+      content.style.padding = 40 + "px";
     }
   });
 }

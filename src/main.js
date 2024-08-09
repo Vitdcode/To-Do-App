@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
         list.toDo,
         list.toDoTextArea,
         list.toDoChecked,
+        list.priority,
         list.id
+
         /*  list.toDoId */
       );
       createListInDomLeftSide();
