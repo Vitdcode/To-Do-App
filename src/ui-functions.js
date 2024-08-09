@@ -34,6 +34,30 @@ export function closePromptButton() {
   }
 }
 
+export function deleteListCard(
+  list,
+  rightSideWrapper,
+  deleteListIcon,
+  listWrapperRight,
+  listNameIDLeft,
+  listWrapperLeft
+) {
+  deleteListIcon.addEventListener("click", () => {
+    lists.forEach((list, index) => {
+      list.id = index;
+    });
+    console.log(list.id);
+    lists.splice(list.id, 1);
+
+    listWrapperLeft.removeChild(document.querySelector(`#${listNameIDLeft}`));
+    rightSideWrapper.removeChild(
+      document.querySelector(`#${listWrapperRight.id}`)
+    );
+
+    localStorage.setItem("lists", JSON.stringify(lists));
+  });
+}
+
 export function createListItem() {
   const promptInputField = document.querySelector(".new-list-input-field");
   if (promptIsopen) {
@@ -75,24 +99,72 @@ export function addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID) {
   });
 }
 
-export function deleteToDoItem(newToDoItemCheckbox, toDoCheckboxAndTextWrapperID, list) { 
-
+export function deleteToDoItem(
+  newToDoItemCheckbox,
+  toDoCheckboxAndTextWrapperID,
+  list,
+  uniqueID,
+  listTextAreaID
+) {
   newToDoItemCheckbox.addEventListener("change", () => {
-    const todoID = `${(toDoCheckboxAndTextWrapperID.split('-')[4])}`
-    if (newToDoItemCheckbox.checked) {
-      const toDoCheckboxAndTextWrapper = document.querySelector(`#${toDoCheckboxAndTextWrapperID}`);
-      toDoCheckboxAndTextWrapper.nextElementSibling.remove();
-      toDoCheckboxAndTextWrapper.remove();
-      list.toDo.splice(`${todoID-1}`, 1);
-      console.log([`${todoID-1}`]);
-      list.toDoTextArea.splice([`${todoID-1}`], 1);
-      if(list.toDoTextArea[`${todoID-1}`]) {
-      list.toDoTextArea[`${todoID-1}`].textAreaID = `${todoID}`;
+    console.log(uniqueID);
+    const toDoIndex = list.toDo.findIndex((item) => item.toDoID === uniqueID);
+
+    if (toDoIndex !== -1) {
+      list.toDo.splice(toDoIndex, 1);
+      list.toDoTextArea.splice(toDoIndex, 1);
+
+      const toDoCheckboxAndTextWrapper = document.querySelector(
+        `#${toDoCheckboxAndTextWrapperID}`
+      );
+
+      if (toDoCheckboxAndTextWrapper) {
+        toDoCheckboxAndTextWrapper.nextElementSibling?.remove();
+        toDoCheckboxAndTextWrapper.remove();
+      }
+
+      localStorage.setItem("lists", JSON.stringify(lists));
+    } else {
+      console.error("Item not found in the list");
     }
-      list.checkBoxToDoCounter-=1;
-      list.toDoItemCounter-=1;
-      console.log(list);
+
+    console.log(lists);
+  });
+}
+
+export function linkingTextAreaToDoItem(
+  textArea,
+  list,
+  toDoCheckboxAndTextWrapperID,
+  textAreaID,
+  newToDoItemCheckbox,
+  uniqueID,
+  listTextAreaID
+) {
+  console.log(lists);
+
+  const textAreaIndex = list.toDoTextArea.findIndex(
+    (item) => item.textAreaID === uniqueID
+  );
+  console.log(textAreaIndex);
+
+  if (textAreaIndex !== -1) {
+    textArea.value = list.toDoTextArea[textAreaIndex].textAreaValue;
+  }
+
+  textArea.addEventListener("change", () => {
+    if (textAreaIndex !== -1) {
+      list.toDoTextArea[textAreaIndex].textAreaValue = textArea.value;
+      console.log(lists);
       localStorage.setItem("lists", JSON.stringify(lists));
     }
   });
-} //prettier-ignore
+
+  deleteToDoItem(
+    newToDoItemCheckbox,
+    toDoCheckboxAndTextWrapperID,
+    list,
+    uniqueID,
+    listTextAreaID
+  );
+}

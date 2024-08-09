@@ -1,18 +1,18 @@
 export let lists = [];
-
+let listIdCounter = 0;
+/* if (!localStorage.getItem('globalToDoCounter')) {
+    localStorage.setItem('globalToDoCounter', '0');
+  }
+ */
 class List {
   constructor(
     name,
     checked = true,
     color = `rgba(180, 180, 180, 0.658)`,
     toDo = [],
-    toDoTextArea = [
-      /*   {
-         textAreaValue: "",
-        textAreaID: "",
-      }, */
-    ],
-    toDoChecked = false
+    toDoTextArea = [],
+    toDoChecked = false,
+    id = 0
   ) {
     this.name = name;
     this.checked = checked;
@@ -20,6 +20,7 @@ class List {
     this.toDo = toDo;
     this.toDoTextArea = toDoTextArea;
     this.toDoChecked = toDoChecked;
+    this.id = id;
     this.checkBoxToDoCounter = 0;
     this.toDoItemCounter = 0;
   }
@@ -36,6 +37,10 @@ class List {
   toDoCheckedSwitch() {
     this.toDoChecked = !this.toDoChecked;
   }
+
+  /*   globalCounter() {
+    let globalCounter = parseInt(localStorage.getItem('globalToDoCounter'), )
+  } */
 }
 
 export default List;

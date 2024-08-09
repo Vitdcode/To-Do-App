@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
         list.color,
         list.toDo,
         list.toDoTextArea,
-        list.toDoChecked
+        list.toDoChecked,
+        list.id
+        /*  list.toDoId */
       );
       createListInDomLeftSide();
     });

@@ -112,6 +112,7 @@ button {
 
 .listWrapper-right {
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 400px;
   height: 500px;
@@ -120,6 +121,20 @@ button {
   margin-top: 40px;
   overflow: auto;
   box-shadow: var(--boxshadowCardTemplate);
+}
+
+.delete-list-icon {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  right: 3%;
+  top: 1%;
+}
+
+.delete-list-icon:hover {
+  background-color: rgba(228, 80, 129, 0.658);
+  border-radius: 100%;
+  cursor: pointer;
 }
 
 .list-name-header-right-side {
@@ -252,6 +267,8 @@ textarea {
   resize: none;
   border-radius: 10px;
   z-index: 2;
+  font-size: 1.1rem;
+  padding-left: 10px;
 }
 
 .notes-text-and-area-wrapper p {
