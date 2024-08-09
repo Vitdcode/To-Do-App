@@ -198,6 +198,8 @@ function createListInDomRightSide(list, index, listWrapperLeft) {
   deleteListIcon.classList.add("delete-list-icon");
   console.log(lists);
 
+  const existingList = document.querySelector(`#${listWrapperRight.id}`);
+
   if (list.checked) {
     listWrapperRight.appendChild(listName);
     listWrapperRight.appendChild(deleteListIcon);
@@ -213,6 +215,8 @@ function createListInDomRightSide(list, index, listWrapperLeft) {
       index,
       listWrapperLeft
     );
+  } else if (!list.checked && existingList) {
+    rightSideWrapper.removeChild(existingList);
   }
 }
 
@@ -277,7 +281,7 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
     listWrapperRight.appendChild(toDoCheckboxAndTextWrapper);
     list.toDo.push({
       toDoName: newToDoItem.textContent,
-      /* toDoID: newToDoItemCheckbox.id, */
+
       toDoID: uniqueID,
     });
 
@@ -311,12 +315,10 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       const newToDoItem = document.createElement("div");
       newToDoItem.textContent = todo.toDoName;
       let uniqueID = todo.toDoID;
-      /*  newToDoItem.id = `list-${list.name}-list-toDoitem-${
-        listWrapperRight.id.split("-")[2]
-      }`; */
+
       const newToDoItemCheckbox = document.createElement("input");
       newToDoItemCheckbox.type = "checkbox";
-      /* newToDoItemCheckbox.id = `checkbox-${list.name}-todo-${list.checkboxCounterToDo()}`; */
+
       newToDoItemCheckbox.id = todo.toDoID;
       toDoCheckboxAndTextWrapper.appendChild(newToDoItem);
       toDoCheckboxAndTextWrapper.appendChild(newToDoItemCheckbox);
