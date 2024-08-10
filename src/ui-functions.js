@@ -75,11 +75,11 @@ export function addToDoCollapsible(addToDoHeadlineButtonID) {
   coll.addEventListener("click", function () {
     this.classList.toggle("active");
     const content = this.nextElementSibling;
-    if (content.style.maxHeight) {
-      content.style.maxHeight = null;
+    if (content.style.height) {
+      content.style.height = null;
       content.style.padding = 0 + "px";
     } else {
-      content.style.maxHeight = 220 + "px";
+      content.style.height = 180 + "px";
       content.style.padding = 40 + "px";
     }
   });
@@ -91,10 +91,10 @@ export function addtoDoItemCollapsible(toDoCheckboxAndTextWrapperID) {
   coll.addEventListener("click", function () {
     this.classList.toggle("active-add-notes");
     const content = this.nextElementSibling;
-    if (content.style.maxHeight) {
-      content.style.maxHeight = null;
+    if (content.style.height) {
+      content.style.height = null;
     } else {
-      content.style.maxHeight = 400 + "px";
+      content.style.height = 300 + "px";
     }
   });
 }

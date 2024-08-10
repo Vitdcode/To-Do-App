@@ -301,14 +301,17 @@ function prioritySetter(
 
     if (clickedButton.id === "toDoLowPriority") {
       priorityToDoMarker.textContent = "Low";
+      list.priority = "Low";
       priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
       inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
     } else if (clickedButton.id === "toDoMediumPriority") {
       priorityToDoMarker.textContent = "Medium";
+      list.priority = "Medium";
       priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
       inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
     } else if (clickedButton.id === "toDoHighPriority") {
       priorityToDoMarker.textContent = "High";
+      list.priority = "High";
       priorityToDoMarkerWrapper.appendChild(priorityToDoMarker);
       inputAddToListButtonWrapper.appendChild(priorityToDoMarkerWrapper);
     }
@@ -318,9 +321,11 @@ function prioritySetter(
 function addToDoItem(list, listWrapperRight, inputID, buttonID) {
   document.querySelector(`#${buttonID}`).addEventListener("click", () => {
     const toDoCheckboxAndTextWrapper = document.createElement("div");
-    toDoCheckboxAndTextWrapper.id = `list-${
+    listNameRemoveWhiteSpaces(list.name);
+    toDoCheckboxAndTextWrapper.id = `list-${listNameRemoveWhiteSpaces(
       list.name
-    }-todo-item-${list.incrementToDoItemCounter()}`;
+    )}-todo-item-${list.incrementToDoItemCounter()}`;
+
     toDoCheckboxAndTextWrapper.classList.add("to-do-checkbox-and-text-wrapper");
 
     const input = document.querySelector(`#${inputID}`);
@@ -333,8 +338,13 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
     newToDoItemCheckbox.id = `checkbox-${list.name}-todo-${list.checkboxCounterToDo()}`; //prettier-ignore
     newToDoItemCheckbox.checked = list.toDoChecked;
 
+    const priorityTodoItem = document.createElement("span");
+    priorityTodoItem.classList.add("priority-todo-item");
+    priorityTodoItem.textContent = list.priority;
+
     toDoCheckboxAndTextWrapper.appendChild(newToDoItem);
     toDoCheckboxAndTextWrapper.appendChild(newToDoItemCheckbox);
+    toDoCheckboxAndTextWrapper.appendChild(priorityTodoItem);
 
     let uniqueID = uuidv4();
 
@@ -346,7 +356,7 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
     listWrapperRight.appendChild(toDoCheckboxAndTextWrapper);
     list.toDo.push({
       toDoName: newToDoItem.textContent,
-
+      toDoPriority: list.priority,
       toDoID: uniqueID,
     });
 
@@ -373,13 +383,19 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       toDoCheckboxAndTextWrapper.classList.add(
         "to-do-checkbox-and-text-wrapper"
       );
-      toDoCheckboxAndTextWrapper.id = `list-${
+      toDoCheckboxAndTextWrapper.id = `list-${listNameRemoveWhiteSpaces(
         list.name
-      }-todo-item-${list.incrementToDoItemCounter()}`;
+      )}-todo-item-${list.incrementToDoItemCounter()}`;
+
+      /*  toDoCheckboxAndTextWrapper.id = uuidv4(); */
 
       const newToDoItem = document.createElement("div");
       newToDoItem.textContent = todo.toDoName;
       let uniqueID = todo.toDoID;
+
+      const priorityTodoItem = document.createElement("span");
+      priorityTodoItem.classList.add("priority-todo-item");
+      priorityTodoItem.textContent = todo.toDoPriority;
 
       const newToDoItemCheckbox = document.createElement("input");
       newToDoItemCheckbox.type = "checkbox";
@@ -387,6 +403,7 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       newToDoItemCheckbox.id = todo.toDoID;
       toDoCheckboxAndTextWrapper.appendChild(newToDoItem);
       toDoCheckboxAndTextWrapper.appendChild(newToDoItemCheckbox);
+      toDoCheckboxAndTextWrapper.appendChild(priorityTodoItem);
       listWrapperRight.appendChild(toDoCheckboxAndTextWrapper);
       addNotesToDoItem(
         toDoCheckboxAndTextWrapper.id,
@@ -398,6 +415,12 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       );
     });
   }
+}
+
+function listNameRemoveWhiteSpaces(listName) {
+  const result = listName.replace(/\s+/g, "-");
+  console.log(result);
+  return result;
 }
 
 function addNotesToDoItem(

@@ -115,7 +115,7 @@ button {
   position: relative;
   flex-direction: column;
   width: 400px;
-  height: 500px;
+  max-height: 600px;
   border-radius: 15px;
   margin-left: 40px;
   margin-top: 40px;
@@ -180,12 +180,13 @@ button {
 
 .input-and-add-to-list-button-wrapper {
   display: flex;
+  flex-shrink: 0;
   position: relative;
   flex-direction: column;
   align-items: center;
-  max-height: 0;
+  height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transition: height 0.2s ease-out;
 }
 
 .to-do-inputfield {
@@ -246,12 +247,13 @@ button {
   position: absolute;
   bottom: 1%;
   right: 1%;
-  background-color: beige;
+  background-color: rgb(69, 216, 172);
   border-radius: 10px;
   padding: 10px;
 }
 
 .to-do-checkbox-and-text-wrapper {
+  position: relative;
   margin-top: 30px;
   margin-inline: 20px;
   display: grid;
@@ -259,19 +261,29 @@ button {
   grid-template-rows: 40px 1fr;
   padding: 10px;
   z-index: 1;
+  border: 1px solid rgb(69, 216, 172);
+  border-radius: 10px;
+}
+
+.priority-todo-item {
+  position: absolute;
+  background-color: rgb(69, 216, 172);
+  padding: 2px;
+  border-radius: 10px;
+  bottom: -35%;
+  left: 0;
 }
 
 .notes-text-and-area-wrapper {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   margin-top: 10px;
   margin-left: 20px;
-  /*   grid-column: span 4;
-  grid-template-rows: 40px 1fr; */
   gap: 20px;
-  max-height: 0;
+  height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transition: height 0.2s ease-out;
 }
 
 .notes-text-and-area-wrapper:after {
@@ -305,7 +317,7 @@ textarea {
 }
 
 .notes-text-and-area-wrapper p {
-  /*   grid-column: 1/3; */
+  margin-top: 25px;
   font-weight: bold;
   color: rgb(38, 120, 255);
 }
@@ -326,7 +338,7 @@ textarea {
 }
 
 .to-do-checkbox-and-text-wrapper:hover {
-  background-color: beige;
+  background-color: rgb(69, 216, 172, 0.7);
   border-radius: 10px;
   cursor: pointer;
 }
