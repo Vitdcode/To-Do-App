@@ -24,16 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
         list.toDoTextArea,
         list.toDoChecked,
         list.priority,
-        list.id
-
-        /*  list.toDoId */
+        list.timeStamp
       );
       createListInDomLeftSide();
     });
   }
   createListItem();
-});
-
-document.querySelector(".clear-storage").addEventListener("click", () => {
-  localStorage.clear();
 });

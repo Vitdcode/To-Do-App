@@ -1,9 +1,6 @@
+import { format } from "date-fns";
 export let lists = [];
-let listIdCounter = 0;
-/* if (!localStorage.getItem('globalToDoCounter')) {
-    localStorage.setItem('globalToDoCounter', '0');
-  }
- */
+
 class List {
   constructor(
     name,
@@ -12,8 +9,9 @@ class List {
     toDo = [],
     toDoTextArea = [],
     toDoChecked = false,
-    id = 0,
-    priority = "Medium"
+    priority = "Medium",
+
+    timeStamp
   ) {
     this.name = name;
     this.checked = checked;
@@ -22,7 +20,8 @@ class List {
     this.toDoTextArea = toDoTextArea;
     this.toDoChecked = toDoChecked;
     this.priority = priority;
-    this.id = id;
+
+    this.timeStamp = timeStamp || this.createTimeStamp();
     this.checkBoxToDoCounter = 0;
     this.toDoItemCounter = 0;
   }
@@ -40,9 +39,13 @@ class List {
     this.toDoChecked = !this.toDoChecked;
   }
 
-  /*   globalCounter() {
-    let globalCounter = parseInt(localStorage.getItem('globalToDoCounter'), )
-  } */
+  createTimeStamp() {
+    return `Created on: ${format(new Date(), "dd.MM.yyyy HH:mm:ss")}`;
+  }
+
+  printTimeStamp() {
+    return this.timeStamp;
+  }
 }
 
 export default List;
@@ -54,7 +57,9 @@ export function pushListToListsArray(
   toDo,
   toDoTextArea,
   toDoChecked,
-  priority
+
+  priority,
+  timeStamp
 ) {
   const list = new List(
     name,
@@ -63,7 +68,14 @@ export function pushListToListsArray(
     toDo,
     toDoTextArea,
     toDoChecked,
-    priority
+
+    priority,
+    timeStamp
   );
   lists.push(list);
+}
+
+export function listNameRemoveWhiteSpaces(listName) {
+  const result = listName.replace(/\s+/g, "-");
+  return result;
 }

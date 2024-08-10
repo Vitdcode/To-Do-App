@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import closeicon from "../src/images/remove.png";
 import deleteicon from "../src/images/delete-icon.png";
-import { lists } from "./listhandling.js";
+import { lists, listNameRemoveWhiteSpaces } from "./listhandling.js";
 import { addToDoCollapsible } from "./ui-functions.js";
 import {
   deleteToDoItem,
@@ -188,6 +188,10 @@ function createListInDomRightSide(list, index, listWrapperLeft) {
   listWrapperRight.id = `list-right-${index.split("-")[1]}`;
   listWrapperRight.classList.add("listWrapper-right");
 
+  const timeStampList = document.createElement("span");
+  timeStampList.classList.add("time-stamp");
+  timeStampList.textContent = list.timeStamp;
+
   const listName = document.createElement("p");
   listName.textContent = list.name;
   listName.classList.add("list-name-header-right-side");
@@ -196,14 +200,13 @@ function createListInDomRightSide(list, index, listWrapperLeft) {
   deleteListIcon.src = deleteicon;
   deleteListIcon.id = `delete-list-icon-${index.split("-")[1]}`;
   deleteListIcon.classList.add("delete-list-icon");
-  console.log(lists);
 
   const existingList = document.querySelector(`#${listWrapperRight.id}`);
 
   if (list.checked) {
     listWrapperRight.appendChild(listName);
     listWrapperRight.appendChild(deleteListIcon);
-
+    listWrapperRight.appendChild(timeStampList);
     rightSideWrapper.appendChild(listWrapperRight);
     listWrapperRight.style.backgroundColor = list.color;
     addToDoElements(list, listWrapperRight);
@@ -358,6 +361,7 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
       toDoName: newToDoItem.textContent,
       toDoPriority: list.priority,
       toDoID: uniqueID,
+      toDoTimeStamp: list.createTimeStamp(),
     });
 
     addNotesToDoItem(
@@ -377,7 +381,6 @@ function addToDoItem(list, listWrapperRight, inputID, buttonID) {
 export function addToDoItemsFromStorage(list, listWrapperRight) {
   if (list.toDo != "") {
     list.toDo.forEach((todo) => {
-      console.log(uniqueID);
       const toDoCheckboxAndTextWrapper = document.createElement("div");
 
       toDoCheckboxAndTextWrapper.classList.add(
@@ -386,8 +389,6 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
       toDoCheckboxAndTextWrapper.id = `list-${listNameRemoveWhiteSpaces(
         list.name
       )}-todo-item-${list.incrementToDoItemCounter()}`;
-
-      /*  toDoCheckboxAndTextWrapper.id = uuidv4(); */
 
       const newToDoItem = document.createElement("div");
       newToDoItem.textContent = todo.toDoName;
@@ -417,12 +418,6 @@ export function addToDoItemsFromStorage(list, listWrapperRight) {
   }
 }
 
-function listNameRemoveWhiteSpaces(listName) {
-  const result = listName.replace(/\s+/g, "-");
-  console.log(result);
-  return result;
-}
-
 function addNotesToDoItem(
   toDoCheckboxAndTextWrapperID,
   list,
@@ -436,13 +431,21 @@ function addNotesToDoItem(
   addNotesText.textContent = `Add Notes for ${newToDoItem}`;
 
   const notesTextArea = document.createElement("textarea");
-  /*  notesTextArea.id = `${toDoCheckboxAndTextWrapperID}-textarea`; */
   notesTextArea.id = newToDoItemCheckbox.id;
 
   const notesTextAndAreaWrapper = document.createElement("div");
   notesTextAndAreaWrapper.classList.add("notes-text-and-area-wrapper");
   notesTextAndAreaWrapper.appendChild(addNotesText);
   notesTextAndAreaWrapper.appendChild(notesTextArea);
+
+  const currentToDo = list.toDo.find((item) => item.toDoID === uniqueID);
+
+  if (currentToDo) {
+    const toDoTimeStamp = document.createElement("span");
+    toDoTimeStamp.classList.add("time-stamp-todo-item");
+    toDoTimeStamp.textContent = currentToDo.toDoTimeStamp; // Use the correct timestamp
+    notesTextAndAreaWrapper.appendChild(toDoTimeStamp);
+  }
 
   listWrapperRight.appendChild(notesTextAndAreaWrapper);
 

@@ -46,7 +46,6 @@ export function deleteListCard(
     lists.forEach((list, index) => {
       list.id = index;
     });
-    console.log(list.id);
     lists.splice(list.id, 1);
 
     listWrapperLeft.removeChild(document.querySelector(`#${listNameIDLeft}`));
@@ -107,7 +106,6 @@ export function deleteToDoItem(
   listTextAreaID
 ) {
   newToDoItemCheckbox.addEventListener("change", () => {
-    console.log(uniqueID);
     const toDoIndex = list.toDo.findIndex((item) => item.toDoID === uniqueID);
 
     if (toDoIndex !== -1) {
@@ -127,8 +125,6 @@ export function deleteToDoItem(
     } else {
       console.error("Item not found in the list");
     }
-
-    console.log(lists);
   });
 }
 
@@ -141,12 +137,9 @@ export function linkingTextAreaToDoItem(
   uniqueID,
   listTextAreaID
 ) {
-  console.log(lists);
-
   const textAreaIndex = list.toDoTextArea.findIndex(
     (item) => item.textAreaID === uniqueID
   );
-  console.log(textAreaIndex);
 
   if (textAreaIndex !== -1) {
     textArea.value = list.toDoTextArea[textAreaIndex].textAreaValue;
@@ -155,7 +148,6 @@ export function linkingTextAreaToDoItem(
   textArea.addEventListener("change", () => {
     if (textAreaIndex !== -1) {
       list.toDoTextArea[textAreaIndex].textAreaValue = textArea.value;
-      console.log(lists);
       localStorage.setItem("lists", JSON.stringify(lists));
     }
   });
