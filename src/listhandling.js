@@ -40,7 +40,7 @@ class List {
   }
 
   createTimeStamp() {
-    return `Created on: ${format(new Date(), "dd.MM.yyyy HH:mm:ss")}`;
+    return `Created on: ${format(new Date(), "dd.MM.yyyy HH:mm")}`;
   }
 
   printTimeStamp() {
